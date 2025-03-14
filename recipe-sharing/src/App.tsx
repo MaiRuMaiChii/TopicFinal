@@ -1,19 +1,19 @@
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./home";
-import RecipeDetail from "./RecipeDetail";
+import ListMenu from "./ListMenu";
 import AddRecipe from "./AddRecipe";
 
-
-function App() {
+const App = () => {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/list-menu" element={<ListMenu />} />
         <Route path="/add-recipe" element={<AddRecipe />} />
       </Routes>
     </Router>
   );
-}
+};
 
 export default App;
