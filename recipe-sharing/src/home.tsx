@@ -21,8 +21,7 @@ const Home = () => {
       <header className="header" style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1 }}>
         <nav>
           <Link to="/" className="add-recipe-btn">หน้าแรก</Link>
-          <Link to="/list-menu" className="add-recipe-btn">เมนูอาหาร</Link>
-          
+          <Link to="/list-menu" className="add-recipe-btn2">เมนูอาหาร</Link>
         </nav>
       </header>
       <div className="welcome-container">
