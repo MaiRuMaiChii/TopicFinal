@@ -54,7 +54,6 @@ const ListMenu = () => {
       }
     }
   };
-  
 
   useEffect(() => {
     fetchRecipes();
