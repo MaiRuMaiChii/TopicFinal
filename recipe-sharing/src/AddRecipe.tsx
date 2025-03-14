@@ -4,6 +4,7 @@ import { Recipe } from "./type";
 import { v4 as uuidv4 } from "uuid";
 import { db } from "./firebase";
 import { Ingredient } from "./type";
+import { Link } from "react-router-dom";
 
 const AddRecipe = () => {
   const [title, setTitle] = useState("");
@@ -28,17 +29,74 @@ const AddRecipe = () => {
     await addDoc(collection(db, "recipes"), newRecipe);
     alert("เพิ่มเมนูอาหารเรียบร้อย");
   };
-
+  
   return (
+    
+    <div 
+      className="add-recipe-container" 
+      style={{ 
+        backgroundImage: 'url(/images/foodbg2.png)',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        height: '100vh',  
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        color: 'white',
+        
+      }}
+    >
+       <header className="header" style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1 }}>
+        <nav>
+          <Link to="/" className="add-recipe-btn">หน้าแรก</Link>
+          <Link to="/list-menu" className="add-recipe-btn">เมนูอาหาร</Link>
+          
+        </nav>
+      </header>
+      
     <div>
-      <h1>Add New Recipe</h1>
+      <h1>เพิ่มเมนูอาหาร</h1>
+        <br/>
+        <br/>
+    
       <form onSubmit={handleSubmit}>
-        <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} required />
-        <textarea placeholder="Description" value={description} onChange={(e) => setDescription(e.target.value)} required />
-        <input type="text" placeholder="Image URL" value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} required />
-        <button type="submit">Add Recipe</button>
-      </form>
-    </div>
+      <input 
+        className="input-field"
+        type="text" 
+        placeholder="ชื่อเมนูอาหาร" 
+        value={title} 
+        onChange={(e) => setTitle(e.target.value)} 
+        required 
+      />
+      <textarea 
+        className="input-field"
+        placeholder="ส่วนประกอบ" 
+        value={description} 
+        onChange={(e) => setDescription(e.target.value)} 
+        required 
+      />
+      <input 
+        className="input-field"
+        type="file"  
+        accept="image/*"  
+        onChange={(e) => {
+        const file = e.target.files ? e.target.files[0] : null; 
+          if (file) {
+            const reader = new FileReader();
+          reader.onloadend = () => {
+            setImageUrl(reader.result as string); 
+          };
+          reader.readAsDataURL(file);  
+          }
+        }}
+  required
+/>
+        <br/>
+      <button type="submit">ยืนยัน</button>
+    </form>
+  </div>
+</div>
   );
 };
 

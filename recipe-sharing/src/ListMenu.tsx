@@ -4,12 +4,14 @@ import { collection, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { Recipe } from "./type";
 import { db } from "./firebase";
 import "./styles.css";
+import { FaCirclePlus } from "react-icons/fa6";
 
 const ListMenu = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  // โหลดเมนูอาหารเมื่อหน้า ListMenu ถูกโหลด
   const fetchRecipes = async () => {
     setLoading(true);
     setError(null); // reset the error state before fetching
@@ -52,11 +54,8 @@ const ListMenu = () => {
     fetchRecipes();
   }, []);
 
-
-
   return (
-  
-      <div 
+    <div 
       className="list-menu-container" 
       style={{ 
         backgroundImage: 'url(/images/foodbg.jpg)',
@@ -68,21 +67,19 @@ const ListMenu = () => {
         justifyContent: 'center', 
         alignItems: 'center',
         color: 'white',
-        
       }}
     >
-       <header className="header" style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1 }}>
+      <header className="header" style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1 }}>
         <nav>
           <Link to="/" className="add-recipe-btn">หน้าแรก</Link>
           <Link to="/list-menu" className="add-recipe-btn">เมนูอาหาร</Link>
-          
         </nav>
-      </header>
-    <div className="list-menu-container"></div>
-      <div className="recipe-list">
         <h1>เมนูอาหาร</h1>
+      </header>
+        
+       
         {recipes.length === 0 ? (
-          <p>ไม่มีเมนูอาหารในตอนนี้</p>
+          <p></p>
         ) : (
           recipes.map((recipe) => (
             <div key={recipe.id} className="recipe-item">
@@ -96,8 +93,12 @@ const ListMenu = () => {
             </div>
           ))
         )}
-      </div>
-    </div>
+
+        <div>
+          <Link to="/add-recipe" className="add-recipe-menu"> <FaCirclePlus /></Link>
+        </div>
+      </div> 
+      
   );
 };
 
