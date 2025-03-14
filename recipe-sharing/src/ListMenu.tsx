@@ -8,9 +8,11 @@ import "./styles.css";
 const ListMenu = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchRecipes = async () => {
     setLoading(true);
+    setError(null); // reset the error state before fetching
     try {
       const querySnapshot = await getDocs(collection(db, "recipes"));
       const recipeList = querySnapshot.docs.map((doc) => ({
@@ -20,6 +22,7 @@ const ListMenu = () => {
       setRecipes(recipeList as Recipe[]);
       console.log("Fetched recipes:", recipeList);
     } catch (error) {
+      setError("เกิดข้อผิดพลาดในการดึงข้อมูลเมนูอาหาร");
       console.error("Error fetching recipes:", error);
     } finally {
       setLoading(false);
@@ -31,10 +34,10 @@ const ListMenu = () => {
     if (isConfirmed) {
       try {
         const recipeDoc = doc(db, "recipes", id);
-        await deleteDoc(recipeDoc); // 🔥 ลบจาก Firestore
+        await deleteDoc(recipeDoc);
+
         console.log(`Deleted recipe with id: ${id}`);
 
-        // 🔥 อัปเดต state ลบออกจาก UI ทันที
         setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== id));
 
         alert("ลบเมนูสำเร็จ");
@@ -49,21 +52,35 @@ const ListMenu = () => {
     fetchRecipes();
   }, []);
 
-  if (loading) {
-    return <div>กำลังโหลดข้อมูล...</div>;
-  }
+
 
   return (
-    <div className="list-menu-container">
-      <header className="header">
+  
+      <div 
+      className="list-menu-container" 
+      style={{ 
+        backgroundImage: 'url(/images/foodbg.jpg)',
+        backgroundColor: 'rgba(0, 0, 0, 0.3)',
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center', 
+        height: '100vh', 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center',
+        color: 'white',
+        
+      }}
+    >
+       <header className="header" style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1 }}>
         <nav>
-          <Link to="/" className="nav-btn home-btn">Home</Link>
-          <Link to="/add-recipe" className="add-recipe-btn">เพิ่มเมนูอาหาร</Link>
+          <Link to="/" className="add-recipe-btn">หน้าแรก</Link>
+          <Link to="/list-menu" className="add-recipe-btn">เมนูอาหาร</Link>
+          
         </nav>
       </header>
-
+    <div className="list-menu-container"></div>
       <div className="recipe-list">
-        <h1>เมนูอาหารทั้งหมด</h1>
+        <h1>เมนูอาหาร</h1>
         {recipes.length === 0 ? (
           <p>ไม่มีเมนูอาหารในตอนนี้</p>
         ) : (

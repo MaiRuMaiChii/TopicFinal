@@ -1,11 +1,14 @@
 
-  .welcome-container {
+.welcome-container {
     text-align: center; 
+    
   }
   
   .welcome-text {
     font-size: 2rem; 
     margin-bottom: 20px; 
+    font-size: 60px;
+    border-radius: 5px;
   }
 
 nav {
@@ -14,7 +17,7 @@ nav {
     align-items: center; 
     gap: 20px; 
     padding: 20px; 
-    margin-left: 500px;
+    margin-left: 520px;
 }
   
 .add-recipe-btn {
@@ -22,11 +25,12 @@ nav {
     color: rgb(255, 255, 255);
     padding: 10px 20px;
     text-decoration: none;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     border-radius: 5px;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin-right: 100px;
 }
   
 .add-recipe-btn:hover {
