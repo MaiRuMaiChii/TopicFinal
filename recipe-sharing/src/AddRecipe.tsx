@@ -16,7 +16,7 @@ const AddRecipe = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const newRecipe: Recipe = {
-      id: uuidv4(),
+      // ไม่ต้องกำหนด id ใน object เพราะจะใช้ doc.id จาก Firestore แทน
       title,
       description,
       ingredients: [],  
@@ -25,9 +25,15 @@ const AddRecipe = () => {
       reviews: [],
       userId: "guest", 
     };
-
-    await addDoc(collection(db, "recipes"), newRecipe);
-    alert("เพิ่มเมนูอาหารเรียบร้อย");
+  
+    try {
+      const docRef = await addDoc(collection(db, "recipes"), newRecipe);
+      console.log("เพิ่มเมนูสำเร็จ ID:", docRef.id);
+      alert("เพิ่มเมนูอาหารเรียบร้อย");
+    } catch (error) {
+      console.error("Error adding recipe:", error);
+      alert("เกิดข้อผิดพลาดในการเพิ่มเมนู");
+    }
   };
   
   return (

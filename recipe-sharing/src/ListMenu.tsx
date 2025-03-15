@@ -17,7 +17,7 @@ const ListMenu = () => {
     try {
       const querySnapshot = await getDocs(collection(db, "recipes"));
       const recipeList = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
+        id: doc.id, // ใช้ Document ID จาก Firestore
         ...doc.data(),
       }));
       setRecipes(recipeList as Recipe[]);
@@ -30,23 +30,15 @@ const ListMenu = () => {
     }
   };
 
-  const handleDelete = async (customId: string) => {
+  const handleDelete = async (docId: string) => {
     const isConfirmed = window.confirm("ต้องการลบเมนูอาหารนี้ใช่หรือไม่?");
     if (isConfirmed) {
       try {
-        // ค้นหาเอกสารที่มีฟิลด์ id ตรงกับค่า customId ที่ส่งมา
-        const querySnapshot = await getDocs(collection(db, "recipes"));
-    
-        let docIdToDelete = "";
-        querySnapshot.forEach((doc) => {
-          const data = doc.data();
-          if (data.id === customId) { // ตรวจสอบค่าในฟิลด์ id
-            console.log(`Found matching document: ${doc.id}`); // ใช้ backticks (``) สำหรับ template literals
-            setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== customId)); // อัปเดต UI
-            deleteDoc(doc.ref); // ลบเอกสาร
-          }
-        });
-    
+        // ลบเอกสารโดยตรงโดยใช้ Document ID
+        await deleteDoc(doc(db, "recipes", docId));
+        
+        // อัปเดต UI โดยลบเมนูที่มี ID ตรงกับ docId ออกจาก state
+        setRecipes((prevRecipes) => prevRecipes.filter((recipe) => recipe.id !== docId));
         alert("ลบเมนูสำเร็จ!");
       } catch (error: any) {
         console.error("Error deleting recipe:", error.message);
@@ -106,7 +98,7 @@ const ListMenu = () => {
               
               <div className="recipe-actions">
                 <Link to={`/recipe/${recipe.id}`} className="view-btn">ดูรายละเอียด</Link>
-                <button onClick={() => handleDelete(recipe.id)} className="delete-btn">ลบเมนู</button>
+                <button onClick={() => handleDelete(recipe.id!)} className="delete-btn">ลบเมนู</button>
               </div>
             </div>
           ))

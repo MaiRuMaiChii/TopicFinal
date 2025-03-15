@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import { doc, getDoc, collection } from "firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import { Recipe } from "./type";
 import { db } from "./firebase";
 
@@ -19,9 +19,8 @@ const RecipeDetail = () => {
     const fetchRecipe = async () => {
       setLoading(true);
       try {
-        // แก้ไข docRef ให้ถูกต้อง
-        const docRef = doc(db, "recipes", "7VVmMzC9yU0jUKh0R0wB", "recipes", id); // แก้ไขที่นี่
-        console.log("Fetching recipe with ID:", id);
+        // ดึงข้อมูลด้วย Document ID โดยตรง
+        const docRef = doc(db, "recipes", id);
         const docSnap = await getDoc(docRef);
   
         if (docSnap.exists()) {
@@ -42,7 +41,7 @@ const RecipeDetail = () => {
   }, [id]);
   
 
- if (loading) return <div>กำลังโหลดข้อมูล...</div>;
+  if (loading) return <div>กำลังโหลดข้อมูล...</div>;
   if (error) return <div>{error}</div>;
   if (!recipe) return <div>ไม่พบข้อมูลเมนู...</div>;
 
@@ -69,15 +68,41 @@ const RecipeDetail = () => {
         </nav>
       </header>
 
-      <div>
+      <div className="recipe-detail">
         <h1>{recipe.title}</h1>
-        <img src={recipe.imageUrl} alt={recipe.title} />
+        <img 
+          src={recipe.imageUrl} 
+          alt={recipe.title} 
+          className="recipe-detail-image"
+          style={{ maxWidth: '80%', borderRadius: '8px', marginBottom: '20px' }}
+        />
         
-        <h3>Ingredients</h3>
-        <ul>{recipe.ingredients?.map((ing, i) => <li key={i}>{ing.name} - {ing.quantity}</li>)}</ul>
-        
-        <h3>Instructions</h3>
-        <ol>{recipe.instructions?.map((step, i) => <li key={i}>{step}</li>)}</ol>
+        <div className="recipe-info">
+          <h3>ส่วนประกอบ</h3>
+          <p>{recipe.description}</p>
+
+          {recipe.ingredients && recipe.ingredients.length > 0 && (
+            <>
+              <h3>วัตถุดิบ</h3>
+              <ul>
+                {recipe.ingredients.map((ing, i) => (
+                  <li key={i}>{ing.name} - {ing.quantity}</li>
+                ))}
+              </ul>
+            </>
+          )}
+          
+          {recipe.instructions && recipe.instructions.length > 0 && (
+            <>
+              <h3>วิธีทำ</h3>
+              <ol>
+                {recipe.instructions.map((step, i) => (
+                  <li key={i}>{step}</li>
+                ))}
+              </ol>
+            </>
+          )}
+        </div>
       </div>
     </div> 
   );
