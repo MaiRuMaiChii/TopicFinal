@@ -158,7 +158,7 @@ nav {
     text-align: center;
 }
 
-.input-field {
+.input-field2 {
     margin-bottom: 20px;
     padding: 12px;
     width: 100%;
@@ -168,18 +168,35 @@ nav {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
+.submit-btn{
+    background-color: #0a5e07;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    margin-left: 50px;
+}
+.cencel-btn{
+    background-color: #d32222;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    margin-left: 450px;
+}
+.cencel-btn:hover{
+    background-color: #7d0808;
+}
 textarea.input-field {
     height: 150px; 
     resize: vertical;
 }
 
 .custom-textarea {
-    width: 500px;
-    height: 250px; 
-   
-    border: 1px solid #ccc; 
+    width: 800px;
+    height: 100%;
     padding: 10px; 
+    margin-left: 250px;
   }
 
 .edit-recipe-container {

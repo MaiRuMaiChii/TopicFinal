@@ -114,33 +114,34 @@ const EditRecipe = () => {
       }}
     >
       <h2>แก้ไขเมนูอาหาร</h2>
+
       <form onSubmit={handleSubmit} className="edit-form">
-        <div className="form-group custom-textarea">
-          <label>ชื่อเมนู:</label>
+        <div className=" custom-textarea">
+          <label>ชื่อเมนู:</label><br/>
           <input
             type="text"
             name="title"
             value={recipe.title}
             onChange={handleChange}
-            className="input-field"
+            className="edit-field"
             required
           />
         </div>
 
-        <div className="form-group custom-textarea">
-          <label>รายละเอียดส่วนประกอบ:</label>
+        <div className="custom-textarea">
+          <label>รายละเอียดส่วนประกอบ:</label><br/>
           <textarea
             name="description"
             value={recipe.description}
             onChange={handleChange}
-            className="input-field "
+            className="edit-field "
             rows={5}
             required
           />
         </div>
 
-        <div className="form-group">
-          <label>รูปภาพ:</label>
+        <div className="custom-textarea">
+          <label>รูปภาพ:</label><br/>
           <input
             type="file"
             accept="image/*"
@@ -159,8 +160,8 @@ const EditRecipe = () => {
           )}
         </div>
 
-        <div className="form-group">
-          <label>ขั้นตอนการทำ:</label>
+        <div className="custom-textarea">
+          <label>ขั้นตอนการทำ:</label> <br/>
           <textarea
             name="instructions"
             value={recipe.instructions ? recipe.instructions.join('\n') : ''}
@@ -172,23 +173,16 @@ const EditRecipe = () => {
                 });
               }
             }}
-            className="input-field"
+            className="edit-field"
             rows={10}
             required
           />
         </div>
-
+        <br/>
         <div className="form-actions">
-          <button
-            type="button"
-            onClick={() => navigate(`/recipes/${id}`)}
-            className="cancel-btn"
-          >
-            ยกเลิก
-          </button>
-          <button type="submit" className="submit-btn">
-            บันทึก
-          </button>
+          <button type="button" className="cencel-btn" onClick={() => navigate(`/recipes/${id}`)}
+            >ยกเลิก</button>
+          <button type="submit" className="submit-btn">บันทึก</button>
         </div>
       </form>
     </div>
