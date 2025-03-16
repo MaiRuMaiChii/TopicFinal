@@ -97,7 +97,7 @@ const ListMenu = () => {
               <p>{recipe.description}</p>
               
               <div className="recipe-actions">
-                <Link to={`/recipe/${recipe.id}`} className="view-btn">ดูรายละเอียด</Link>
+                <Link to={`/recipes/${recipe.id}`} className="view-btn">ดูรายละเอียด</Link>
                 <button onClick={() => handleDelete(recipe.id!)} className="delete-btn">ลบเมนู</button>
               </div>
             </div>
