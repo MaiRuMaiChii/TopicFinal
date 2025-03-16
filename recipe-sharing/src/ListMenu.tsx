@@ -94,7 +94,6 @@ const ListMenu = () => {
             <div key={recipe.id} className="recipe-item">
               <h2>{recipe.title}</h2>
               <img src={recipe.imageUrl} alt={recipe.title} className="recipe-image" />
-              <p>{recipe.description}</p>
               
               <div className="recipe-actions">
                 <Link to={`/recipes/${recipe.id}`} className="view-btn">ดูรายละเอียด</Link>

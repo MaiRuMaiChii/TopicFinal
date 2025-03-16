@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useEffect, useState } from "react";  
+import { useParams , useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { Recipe } from "./type";
 import { db } from "./firebase";
@@ -9,6 +9,7 @@ const RecipeDetail = () => {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!id) {
@@ -19,7 +20,6 @@ const RecipeDetail = () => {
     const fetchRecipe = async () => {
       setLoading(true);
       try {
-        // ดึงข้อมูลด้วย Document ID โดยตรง
         const docRef = doc(db, "recipes", id);
         const docSnap = await getDoc(docRef);
   
@@ -39,7 +39,6 @@ const RecipeDetail = () => {
   
     fetchRecipe();
   }, [id]);
-  
 
   if (loading) return <div>กำลังโหลดข้อมูล...</div>;
   if (error) return <div>{error}</div>;
@@ -61,50 +60,41 @@ const RecipeDetail = () => {
         paddingTop: "20px"
       }}
     >
-      <header className="header" style={{ position: 'absolute', top: '20px', left: '20px', zIndex: 1 }}>
-        <nav>
-          <Link to="/" className="add-recipe-btn">หน้าแรก</Link>
-          <Link to="/list-menu" className="add-recipe-btn2">เมนูอาหาร</Link>
-        </nav>
-      </header>
+      <button onClick={() => navigate("/list-menu")} style={{ alignSelf: 'flex-start', marginLeft: '20px' }}>ย้อนกลับ</button>
+      <div className="recipe-container2">
+        <div className="recipe-card2">
+        <div className="title-container">
+            <h1 className="recipe-title2"  >{recipe.title}</h1>
+          </div>
+          <br />
+          <img 
+            src={recipe.imageUrl} 
+            alt={recipe.title} 
+            className="recipe-image2"
+          />
+          <div className="recipe-content2">
+            <h3>ส่วนประกอบ</h3>
+            <ol>
+              {recipe.description.split("\n").map((item, index) => (
+                <li key={index}>{item}</li>
+              ))}
+            </ol>
 
-      <div className="recipe-detail">
-        <h1>{recipe.title}</h1>
-        <img 
-          src={recipe.imageUrl} 
-          alt={recipe.title} 
-          className="recipe-detail-image"
-          style={{ maxWidth: '80%', borderRadius: '8px', marginBottom: '20px' }}
-        />
-        
-        <div className="recipe-info">
-          <h3>ส่วนประกอบ</h3>
-          <p>{recipe.description}</p>
-
-          {recipe.ingredients && recipe.ingredients.length > 0 && (
-            <>
-              <h3>วัตถุดิบ</h3>
-              <ul>
-                {recipe.ingredients.map((ing, i) => (
-                  <li key={i}>{ing.name} - {ing.quantity}</li>
-                ))}
-              </ul>
-            </>
-          )}
-          
-          {recipe.instructions && recipe.instructions.length > 0 && (
-            <>
+            {recipe.instructions?.length > 0 && (
+            <div className="recipe-instructions-block"> 
               <h3>วิธีทำ</h3>
-              <ol>
-                {recipe.instructions.map((step, i) => (
-                  <li key={i}>{step}</li>
-                ))}
-              </ol>
-            </>
-          )}
+            <ol>
+              {recipe.instructions.map((step, i) => (
+              <li key={i}>{step}</li>
+              ))}
+            </ol>
+            </div>
+            )}
+          </div>
         </div>
       </div>
-    </div> 
+    
+    </div>
   );
 };
 

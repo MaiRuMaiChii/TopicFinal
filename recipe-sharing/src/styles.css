@@ -63,12 +63,12 @@ nav {
 }
 
 .recipe-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    display: flex;
+    flex-direction: row; /* จัดเรียงรายการในแนวนอน */
+    flex-wrap: wrap; /* อนุญาตให้ขึ้นบรรทัดใหม่เมื่อไม่พอดี */
+    justify-content: flex-start; /* จัดเรียงรายการจากซ้ายไปขวา */
+    gap: 20px; /* กำหนดระยะห่างระหว่างรายการ */
     justify-content: center;
-    max-width: auto;
-    margin: 0 auto;
 }
 
 .recipe-item {
@@ -77,8 +77,10 @@ nav {
     padding: 20px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s ease;
-    
+    width: 300px; /* กำหนดความกว้างของแต่ละรายการ */
+    margin: 10px; /* กำหนดระยะห่างภายนอก */
 }
+
 
 .recipe-item:hover {
     transform: translateY(-5px);
@@ -109,11 +111,12 @@ nav {
     background-color: #ff5722;
     color: white;
     border: none;
-    padding: 8px 15px;
+    padding: 8px 15px; /* ปรับ padding ตามความเหมาะสม */
     cursor: pointer;
     border-radius: 5px;
     text-decoration: none;
     transition: background-color 0.3s ease;
+ 
 }
 
 .view-btn:hover {
@@ -200,4 +203,57 @@ button:hover {
     .welcome-text {
         font-size: 40px;
     }
+}
+.recipe-container2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  
+  .recipe-card2 {
+    min-height: 1200px;
+    width: 800px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    color: black; 
+    overflow: visible;
+  }
+  
+.recipe-title2{
+    margin-top: 2px;
+}
+  
+.recipe-image2 {
+    width: 500px;  
+    height: 350px; 
+    object-fit: cover; 
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+  
+.recipe-content2 {
+    text-align: left;
+    display: block; 
+    visibility: visible;
+  }
+.recipe-instructions-block {
+    background-color: rgba(123, 120, 120, 0.229); 
+    padding: 15px; 
+    border-radius: 5px; 
+    margin-top: 10px; 
+    width: auto;  
+    height: auto;
+  }
+.title-container {
+    width: auto;
+    height: 40px;
+    background-color: rgba(118, 106, 108, 0.568); 
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px; 
+    
 }
