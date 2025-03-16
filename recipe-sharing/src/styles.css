@@ -174,6 +174,58 @@ textarea.input-field {
     resize: vertical;
 }
 
+.custom-textarea {
+    width: 500px;
+    height: 250px; 
+   
+    border: 1px solid #ccc; 
+    padding: 10px; 
+  }
+
+.edit-recipe-container {
+    background-color: rgba(0, 0, 0, 0.3);
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    padding: 20px;
+}
+.edit-field {
+    margin-bottom: 20px;
+    padding: 12px;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea.edit-field {
+    height: 150px; 
+    resize: vertical;
+}
+.image-preview img {
+    border-radius: 8px;
+}
+
+.edit-button {
+    padding: 12px 24px;
+    background-color: #4CAF50;
+    color: rgb(255, 255, 255);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100px;
+    height: 50px;
+    margin-left: auto;
+    
+}
+
 button {
     padding: 12px 24px;
     background-color: #4CAF50;
@@ -186,7 +238,7 @@ button {
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #0d7422;
     transform: scale(1.05);
 }
 
@@ -204,56 +256,94 @@ button:hover {
         font-size: 40px;
     }
 }
-.recipe-container2{
+.recipe-container2 {
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 20px;
+    width: 100%;
   }
   
   .recipe-card2 {
-    min-height: 1200px;
-    width: 800px;
-    background: white;
+    width: 1200px;
+    background: rgba(233, 233, 233, 0);
     padding: 20px;
     border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgb(255, 255, 255);
     text-align: center;
-    color: black; 
+    color: black;
     overflow: visible;
+    display: flex; /* เพิ่ม flex เพื่อจัดวางส่วนประกอบ */
+    flex-direction: column; /* จัดวางในแนวตั้ง */
   }
   
-.recipe-title2{
+  .recipe-title2 {
     margin-top: 2px;
-}
+    color: white;
+  }
   
-.recipe-image2 {
-    width: 500px;  
-    height: 350px; 
-    object-fit: cover; 
+  .recipe-image2 {
+    width: 400px; /* ลดขนาดรูปภาพ */
+    height: auto; /* ให้ปรับตามสัดส่วน */
+    object-fit: cover;
     border-radius: 8px;
     margin-bottom: 20px;
-}
+  }
   
-.recipe-content2 {
+  .recipe-content2 {
     text-align: left;
-    display: block; 
-    visibility: visible;
+    display: flex; /* เปลี่ยนเป็น flex เพื่อจัดวางส่วนประกอบ */
+    width: 100%;
+    align-items: flex-start; /* จัดให้เนื้อหาเริ่มจากด้านบน */
   }
-.recipe-instructions-block {
-    background-color: rgba(123, 120, 120, 0.229); 
-    padding: 15px; 
-    border-radius: 5px; 
-    margin-top: 10px; 
-    width: auto;  
+  
+  .recipe-instructions-block {
+    background-color: rgba(123, 120, 120, 0.229);
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .title-container {
+    width: 100%;
     height: auto;
-  }
-.title-container {
-    width: auto;
-    height: 40px;
-    background-color: rgba(118, 106, 108, 0.568); 
+    background-color: rgba(255, 255, 255, 0);
     padding: 10px;
     border-radius: 5px;
-    margin-bottom: 10px; 
-    
-}
+    margin-bottom: 10px;
+  }
+  
+ 
+.ingredients-card,.instructions-card {
+    flex: 1;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px;
+    background-color: rgba(255, 255, 255, 0.668);
+  }
+  
+.ingredients-card h3,.instructions-card h3 {
+    text-align: center;
+  }
+  
+.ingredients-card ol,.instructions-card ol {
+    padding-left: 20px;
+  }
+  
+  
+.recipe-content2 {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .recipe-image2 {
+    margin-top: 110px;
+    margin-right: 20px; 
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .recipe-content2 > div {
+    flex: 1; 
+  }

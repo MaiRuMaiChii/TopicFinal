@@ -10,7 +10,7 @@ export interface Review {
 }
 
 export interface Recipe {
-  id?: string; // ทำให้ id เป็น optional เพราะจะใช้ Document ID จาก Firestore แทน
+  id?: string; 
   title: string;
   description: string;
   ingredients: Ingredient[];
