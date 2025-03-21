@@ -20,8 +20,6 @@ const AddRecipe = () => {
       ingredients: ingredients, 
       instructions: instructions, 
       imageUrl,
-      reviews: [],
-      userId: "guest",
     };
 
     try {
