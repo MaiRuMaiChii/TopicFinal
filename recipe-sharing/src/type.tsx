@@ -5,8 +5,6 @@ export interface Ingredient {
 
 export interface Review {
   userId: string;
-  rating: number;
-  comment: string;
 }
 
 export interface Recipe {
