@@ -15,8 +15,11 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center; 
-    gap: 20px; 
+    gap: 10px; 
     padding: 20px; 
+    position: fixed;
+    margin-left: 60px;
+    
 }
 
 .add-recipe-btn {
