@@ -11,14 +11,17 @@ const ListMenu = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
+  // ฟังก์ชันสำหรับดึงข้อมูลเมนูอาหารจาก Firestore
   const fetchRecipes = async () => {
     setLoading(true);
     setError(null); 
     try {
+      // ดึงข้อมูลทั้งหมดจากคอลเลกชัน "recipes" ใน Firestore
       const querySnapshot = await getDocs(collection(db, "recipes"));
+      // สร้างรายการเมนูอาหารจาก querySnapshot โดยการ map แต่ละ Document
       const recipeList = querySnapshot.docs.map((doc) => ({
         id: doc.id, // ใช้ Document ID จาก Firestore
-        ...doc.data(),
+        ...doc.data(), //ดึงข้อมูล Doc จาก Firestore
       }));
       setRecipes(recipeList as Recipe[]);
       console.log("Fetched recipes:", recipeList);
@@ -29,7 +32,7 @@ const ListMenu = () => {
       setLoading(false);
     }
   };
-
+  // ฟังก์ชันสำหรับลบเมนูอาหารจาก Firestore
   const handleDelete = async (docId: string) => {
     const isConfirmed = window.confirm("ต้องการลบเมนูอาหารนี้ใช่หรือไม่?");
     if (isConfirmed) {
@@ -46,9 +49,9 @@ const ListMenu = () => {
       }
     }
   };
-
+// useEffect Hook จะทำงานหลังจาก Component ถูก Render ครั้งแรก
   useEffect(() => {
-    fetchRecipes();
+    fetchRecipes();//เรียกฟังก์ชัน fetchRecipes เพื่อดึงข้อมูลเมนูอาหารเมื่อ Component
   }, []);
 
   return (

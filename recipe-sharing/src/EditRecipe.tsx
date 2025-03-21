@@ -6,7 +6,7 @@ import { db } from "./firebase";
 import { Recipe } from "./type";
 
 const EditRecipe = () => {
-  const { id } = useParams();
+  const { id } = useParams(); //ไปที่ url ที่อยู่ id นั้นๆ
   const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -18,10 +18,10 @@ const EditRecipe = () => {
       setError("ไม่พบข้อมูลเมนู...");
       return;
     }
-
+     // ฟังก์ชันสำหรับดึงข้อมูลเมนูอาหารจาก Firestore โดยใช้ 'id' ที่ได้จาก URL
     const fetchRecipe = async () => {
       setLoading(true);
-      try {
+      try {    
         const docRef = doc(db, "recipes", id);
         const docSnap = await getDoc(docRef);
 
@@ -38,7 +38,7 @@ const EditRecipe = () => {
       setLoading(false);
     };
 
-    fetchRecipe();
+    fetchRecipe();// เรียกฟังก์ชัน fetchRecipe เพื่อดึงข้อมูลเมื่อ Component เมื่อ id เปลี่ยนแปลง
   }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
